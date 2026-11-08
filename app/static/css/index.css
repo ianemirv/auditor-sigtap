@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f3;
+  color: #222222;
+  line-height: 1.5;
+}
+
+header {
+  background-color: #16695f;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #16695f;
+}
+
+.cartoes {
+  display: flex;
+  gap: 15px;
+}
+
+.cartao {
+  flex: 1;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  border-top: 4px solid #16695f;
+}
+
+.cartao h3 {
+  margin-top: 0;
+}
+
+button {
+  background-color: #16695f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0f4d46;
+}
+
+.texto-clinico {
+  background-color: white;
+  padding: 15px;
+  border-left: 4px solid #999999;
+  font-family: 'Courier New', monospace;
+}
+
+.alerta {
+  background-color: #fbeaea;
+  color: #b4232f;
+  padding: 10px;
+  border-left: 4px solid #b4232f;
+  font-weight: bold;
+}
+
+.escondido {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666666;
+}
+
+/* Celular: cartões um embaixo do outro */
+@media (max-width: 600px) {
+  .cartoes {
+    flex-direction: column;
+  }
+}
