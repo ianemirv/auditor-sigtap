@@ -1,0 +1,66 @@
+[
+  {
+    "texto": "Paciente de 45 anos com dor abdominal há 2 dias. Realizada USG de abdome total e hemograma completo.",
+    "gabarito": ["02.05.02.004-6", "02.02.02.038-0"]
+  },
+  {
+    "texto": "Paciente com tosse e febre há 5 dias. Solicitado RX de tórax PA e perfil e hemograma. PCR elevada.",
+    "gabarito": ["02.04.03.015-3", "02.02.02.038-0", "02.02.03.008-3"]
+  },
+  {
+    "texto": "Diabético em acompanhamento. Colhidos glicemia de jejum e hemoglobina glicada (HbA1c).",
+    "gabarito": ["02.02.01.047-3", "02.02.01.050-3"]
+  },
+  {
+    "texto": "Queda da própria altura com trauma craniano. Realizada TC de crânio sem contraste, sem alterações.",
+    "gabarito": ["02.06.01.007-9"]
+  },
+  {
+    "texto": "Dor torácica em aperto. ECG realizado na admissão, sem supra de ST. Dosados sódio e potássio.",
+    "gabarito": ["02.11.02.003-6", "02.02.01.063-5", "02.02.01.060-0"]
+  },
+  {
+    "texto": "Avaliação de função renal: creatinina 1,8 e ureia 60. Eletrólitos dentro da normalidade.",
+    "gabarito": ["02.02.01.031-7", "02.02.01.069-4", "02.02.01.063-5", "02.02.01.060-0"]
+  },
+  {
+    "texto": "Consulta de rotina. Solicitados perfil lipídico (colesterol total e triglicerídeos), glicemia e TSH.",
+    "gabarito": ["02.02.01.029-5", "02.02.01.067-8", "02.02.01.047-3", "02.02.06.025-0"]
+  },
+  {
+    "texto": "Disúria e febre. Solicitados EAS e urocultura. Hemograma sem leucocitose.",
+    "gabarito": ["02.02.05.001-7", "02.02.02.038-0"]
+  },
+  {
+    "texto": "Paciente com cefaleia intensa. Solicitada tomografia de crânio, mas o paciente recusou o exame.",
+    "gabarito": []
+  },
+  {
+    "texto": "Hmg com anemia leve. Sumário de urina normal.",
+    "gabarito": ["02.02.02.038-0", "02.02.05.001-7"]
+  },
+  {
+    "texto": "Dispneia. Raio-X de tórax com infiltrado em base direita. Proteína C reativa aumentada.",
+    "gabarito": ["02.04.03.015-3", "02.02.03.008-3"]
+  },
+  {
+    "texto": "Gestante com dor em baixo ventre. Realizado ultrassom pélvico, sem alterações.",
+    "gabarito": []
+  },
+  {
+    "texto": "Paciente evoluiu com PCR, revertida após dois ciclos de RCP. ECG pós-reanimação em ritmo sinusal.",
+    "gabarito": ["02.11.02.003-6"]
+  },
+  {
+    "texto": "Hipotireoidismo em uso de levotiroxina. Dosado hormônio tireoestimulante, valor normal.",
+    "gabarito": ["02.02.06.025-0"]
+  },
+  {
+    "texto": "Epigastralgia há uma semana. Realizada ultrasonografia abdominal, sem alterações.",
+    "gabarito": ["02.05.02.004-6"]
+  },
+  {
+    "texto": "Controle de diabetes: glicose 180 mg/dL e creatinina normal.",
+    "gabarito": ["02.02.01.047-3", "02.02.01.031-7"]
+  }
+]

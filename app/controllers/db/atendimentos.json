@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "texto": "Paciente de 45 anos com dor abdominal há 2 dias. Realizada USG de abdome total e hemograma completo.",
+    "faturados": ["02.02.02.038-0"],
+    "data": "10/11/2026 09:15"
+  },
+  {
+    "id": 2,
+    "texto": "Consulta de rotina. Solicitados perfil lipídico (colesterol total e triglicerídeos), glicemia e TSH.",
+    "faturados": ["02.02.01.029-5", "02.02.01.067-8", "02.02.01.047-3", "02.02.06.025-0"],
+    "data": "10/11/2026 10:40"
+  },
+  {
+    "id": 3,
+    "texto": "Dor torácica em aperto. ECG realizado na admissão, sem supra de ST. Dosados sódio e potássio.",
+    "faturados": ["02.11.02.003-6", "02.02.02.038-0"],
+    "data": "10/11/2026 14:05"
+  }
+]

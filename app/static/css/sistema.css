@@ -1,0 +1,414 @@
+/* Estilo das páginas internas do sistema (Nível 2) */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f3;
+  color: #222222;
+  line-height: 1.5;
+}
+
+/* ---------- Barra do topo ---------- */
+
+.topo {
+  background-color: #16695f;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topo a {
+  color: white;
+  text-decoration: none;
+}
+
+.marca {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.topo nav a {
+  margin-left: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.topo nav a:hover,
+.topo nav a.ativo {
+  background-color: #0f4d46;
+}
+
+/* ---------- Estrutura ---------- */
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  color: #16695f;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.titulo-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.data, .explicacao, .vazio {
+  color: #666666;
+}
+
+.caixa {
+  background-color: white;
+  padding: 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.titulo-caixa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.titulo-caixa h2 {
+  margin: 0;
+}
+
+.duas-colunas {
+  display: flex;
+  gap: 20px;
+}
+
+.duas-colunas .caixa {
+  flex: 1;
+}
+
+/* ---------- Botões e links ---------- */
+
+.botao, .botao-secundario {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #16695f;
+}
+
+.botao {
+  background-color: #16695f;
+  color: white;
+}
+
+.botao:hover {
+  background-color: #0f4d46;
+}
+
+.botao-secundario {
+  background-color: white;
+  color: #16695f;
+}
+
+.botao-secundario:hover {
+  background-color: #e3efed;
+}
+
+.botao.perigo {
+  background-color: #b4232f;
+  border-color: #b4232f;
+}
+
+.botao-texto {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.botao-texto.perigo {
+  color: #b4232f;
+}
+
+.botoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.botoes form {
+  margin: 0;
+}
+
+/* ---------- Tabelas ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #e3efed;
+  text-align: left;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+  border-top: 1px solid #e5e5e5;
+  vertical-align: top;
+}
+
+.nao-quebra {
+  white-space: nowrap;
+}
+
+.acoes a {
+  margin-right: 10px;
+  color: #16695f;
+}
+
+.acoes form {
+  display: inline;
+}
+
+.codigo {
+  font-family: 'Courier New', monospace;
+  color: #555555;
+}
+
+/* ---------- Selos e etiquetas ---------- */
+
+.selo {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+.selo-alerta {
+  background-color: #fbeaea;
+  color: #b4232f;
+}
+
+.selo-aviso {
+  background-color: #fdf3d8;
+  color: #8a6100;
+}
+
+.selo-ok {
+  background-color: #e3efed;
+  color: #16695f;
+}
+
+.etiqueta {
+  display: inline-block;
+  background-color: #e3efed;
+  color: #0f4d46;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 2px 2px 2px 0;
+}
+
+/* ---------- Alertas do detalhe ---------- */
+
+.alerta, .aviso, .tudo-certo {
+  padding: 10px 14px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.alerta {
+  background-color: #fbeaea;
+  color: #b4232f;
+  border-left: 4px solid #b4232f;
+}
+
+.aviso {
+  background-color: #fdf3d8;
+  color: #8a6100;
+  border-left: 4px solid #d9a400;
+}
+
+.tudo-certo {
+  background-color: #e3efed;
+  color: #16695f;
+  border-left: 4px solid #16695f;
+}
+
+/* ---------- Texto clínico e destaque ---------- */
+
+.texto-clinico {
+  font-family: 'Courier New', monospace;
+  border-left: 4px solid #999999;
+  padding: 10px 15px;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+mark {
+  background-color: #ffe08a;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* ---------- Sugestões com barra de pontuação ---------- */
+
+.sugestao {
+  margin-bottom: 14px;
+}
+
+.sugestao-topo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pontos {
+  font-weight: bold;
+  color: #16695f;
+}
+
+.barra {
+  background-color: #e5e5e5;
+  height: 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.barra-cheia {
+  background-color: #16695f;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.sugestao small {
+  color: #666666;
+}
+
+.lista-faturados {
+  padding-left: 18px;
+}
+
+/* ---------- Formulários ---------- */
+
+.formulario {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.formulario label {
+  display: block;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.formulario input[type="text"],
+.formulario textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px;
+  font-size: 15px;
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  margin-top: 4px;
+}
+
+.formulario textarea {
+  font-family: 'Courier New', monospace;
+}
+
+.formulario input[readonly] {
+  background-color: #eeeeee;
+}
+
+.formulario small {
+  color: #666666;
+}
+
+fieldset {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px 15px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+.formulario .opcao {
+  font-weight: normal;
+  margin-top: 6px;
+}
+
+.linha-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contador {
+  color: #666666;
+  font-size: 13px;
+  font-weight: normal;
+  margin-left: auto;
+}
+
+.erro {
+  color: #b4232f;
+  font-size: 14px;
+}
+
+.escondido {
+  display: none;
+}
+
+.previa {
+  margin-top: 6px;
+  min-height: 24px;
+}
+
+.formulario .botoes {
+  margin-top: 20px;
+}
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 700px) {
+  .duas-colunas {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .topo nav a {
+    margin-left: 0;
+    margin-right: 8px;
+  }
+
+  /* Tabela vira rolagem lateral para não espremer o texto */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

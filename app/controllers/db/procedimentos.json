@@ -1,0 +1,82 @@
+[
+  {
+    "codigo": "02.02.02.038-0",
+    "nome": "Hemograma completo",
+    "palavras_chave": ["hemograma", "hmg"]
+  },
+  {
+    "codigo": "02.02.01.047-3",
+    "nome": "Dosagem de glicose",
+    "palavras_chave": ["glicemia", "glicose"]
+  },
+  {
+    "codigo": "02.02.01.050-3",
+    "nome": "Dosagem de hemoglobina glicosilada",
+    "palavras_chave": ["hemoglobina glicada", "hemoglobina glicosilada", "hba1c"]
+  },
+  {
+    "codigo": "02.02.01.031-7",
+    "nome": "Dosagem de creatinina",
+    "palavras_chave": ["creatinina", "função renal"]
+  },
+  {
+    "codigo": "02.02.01.069-4",
+    "nome": "Dosagem de ureia",
+    "palavras_chave": ["ureia", "função renal"]
+  },
+  {
+    "codigo": "02.02.01.029-5",
+    "nome": "Dosagem de colesterol total",
+    "palavras_chave": ["colesterol", "perfil lipídico", "lipidograma"]
+  },
+  {
+    "codigo": "02.02.01.067-8",
+    "nome": "Dosagem de triglicerídeos",
+    "palavras_chave": ["triglicerídeos", "perfil lipídico", "lipidograma"]
+  },
+  {
+    "codigo": "02.02.06.025-0",
+    "nome": "Dosagem de hormônio tireoestimulante (TSH)",
+    "palavras_chave": ["tsh", "tireoestimulante"]
+  },
+  {
+    "codigo": "02.02.03.008-3",
+    "nome": "Determinação quantitativa de proteína C reativa",
+    "palavras_chave": ["pcr", "proteína c reativa"]
+  },
+  {
+    "codigo": "02.02.01.063-5",
+    "nome": "Dosagem de sódio",
+    "palavras_chave": ["sódio", "eletrólitos"]
+  },
+  {
+    "codigo": "02.02.01.060-0",
+    "nome": "Dosagem de potássio",
+    "palavras_chave": ["potássio", "eletrólitos"]
+  },
+  {
+    "codigo": "02.02.05.001-7",
+    "nome": "Análise de caracteres físicos, elementos e sedimento da urina",
+    "palavras_chave": ["eas", "urina tipo 1", "sumário de urina"]
+  },
+  {
+    "codigo": "02.04.03.015-3",
+    "nome": "Radiografia de tórax (PA e perfil)",
+    "palavras_chave": ["radiografia", "rx", "raio x", "tórax"]
+  },
+  {
+    "codigo": "02.05.02.004-6",
+    "nome": "Ultrassonografia de abdome total",
+    "palavras_chave": ["ultrassonografia", "usg", "ultrassom", "abdome", "abdominal"]
+  },
+  {
+    "codigo": "02.06.01.007-9",
+    "nome": "Tomografia computadorizada do crânio",
+    "palavras_chave": ["tomografia", "tc", "crânio", "encéfalo"]
+  },
+  {
+    "codigo": "02.11.02.003-6",
+    "nome": "Eletrocardiograma",
+    "palavras_chave": ["eletrocardiograma", "ecg"]
+  }
+]
