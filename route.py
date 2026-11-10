@@ -19,15 +19,13 @@ def helper(info= None):
     return ctl.render('helper')
 
 
-#-----------------------------------------------------------------------------
-# Suas rotas aqui:
+
 
 @app.route('/', methods=['GET'])
 def action_index():
     return ctl.render('index')
 
 
-#-----------------------------------------------------------------------------
 
 
 if __name__ == '__main__':
