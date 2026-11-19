@@ -11,7 +11,11 @@
   <header>
     <h1>Auditor SIGTAP</h1>
     <p>Encontra procedimentos do SUS que foram feitos, mas não foram cobrados.</p>
-    <a class="botao-entrar" href="/atendimentos">Abrir o sistema</a>
+    % if usuario is None:
+      <a class="botao-entrar" href="/login">Entrar no sistema</a>
+    % else:
+      <a class="botao-entrar" href="/painel">Abrir o painel</a>
+    % end
   </header>
 
   <main>

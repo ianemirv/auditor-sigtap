@@ -24,6 +24,7 @@
           <tr>
             <th>Nº</th>
             <th>Data</th>
+            <th>Por</th>
             <th>Texto clínico</th>
             <th>Faturados</th>
             <th>Situação</th>
@@ -36,6 +37,7 @@
             <tr>
               <td>{{atendimento.id}}</td>
               <td class="nao-quebra">{{atendimento.data}}</td>
+              <td>{{atendimento.autor or '—'}}</td>
               <td>{{atendimento.resumo()}}</td>
               <td>{{len(atendimento.faturados)}}</td>
               <td>

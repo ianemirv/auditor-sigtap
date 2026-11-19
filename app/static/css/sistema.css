@@ -1,4 +1,4 @@
-/* Estilo das páginas internas do sistema (Nível 2) */
+/* Estilo das páginas internas do sistema (Níveis 2 e 3) */
 
 body {
   margin: 0;
@@ -325,6 +325,7 @@ mark {
 }
 
 .formulario input[type="text"],
+.formulario input[type="password"],
 .formulario textarea {
   width: 100%;
   box-sizing: border-box;
@@ -393,6 +394,169 @@ legend {
   margin-top: 20px;
 }
 
+/* ---------- Nível 3: usuário logado no topo ---------- */
+
+.usuario-logado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 14px;
+}
+
+.selo-tipo {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.selo-administrador {
+  background-color: #ffe08a;
+  color: #5c4100;
+}
+
+.selo-codificador {
+  background-color: #d6ecff;
+  color: #0b4f8a;
+}
+
+.topo .botao-sair {
+  border: 1px solid white;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+
+.topo .botao-sair:hover {
+  background-color: white;
+  color: #16695f;
+}
+
+/* ---------- Nível 3: painel ---------- */
+
+.cartoes-numeros {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.cartao-numero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  border-top: 4px solid #16695f;
+  color: #555555;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+.cartao-numero:hover {
+  transform: translateY(-3px);
+}
+
+.cartao-numero .numero {
+  font-size: 34px;
+  font-weight: bold;
+  color: #16695f;
+}
+
+.cartao-alerta {
+  border-top-color: #b4232f;
+}
+
+.cartao-alerta .numero {
+  color: #b4232f;
+}
+
+.item-alerta {
+  display: block;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-left: 4px solid #b4232f;
+  background-color: #fdf6f6;
+  border-radius: 5px;
+  color: #222222;
+  text-decoration: none;
+}
+
+.item-alerta:hover {
+  background-color: #fbeaea;
+}
+
+.item-alerta small {
+  color: #666666;
+  margin-left: 6px;
+}
+
+.permissoes {
+  list-style: none;
+  padding: 0;
+}
+
+.permissoes li {
+  padding: 4px 0;
+}
+
+.permissoes li.sim::before {
+  content: "✓ ";
+  color: #16695f;
+  font-weight: bold;
+}
+
+.permissoes li.nao {
+  color: #999999;
+  text-decoration: line-through;
+}
+
+.permissoes li.nao::before {
+  content: "✗ ";
+  color: #b4232f;
+  font-weight: bold;
+}
+
+.atalhos {
+  flex-wrap: wrap;
+}
+
+/* ---------- Nível 3: acesso negado e formulário de usuário ---------- */
+
+.negado {
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: center;
+  border-top: 5px solid #b4232f;
+}
+
+.negado h1 {
+  color: #b4232f;
+  margin-top: 0;
+}
+
+.codigo-erro {
+  font-size: 60px;
+  font-weight: bold;
+  color: #e5c2c5;
+  margin: 0;
+}
+
+.campo-senha {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.campo-senha input {
+  flex: 1;
+}
+
+.campo-senha .botao-secundario {
+  margin-top: 4px;
+}
+
 /* ---------- Celular ---------- */
 
 @media (max-width: 700px) {
@@ -404,6 +568,14 @@ legend {
   .topo nav a {
     margin-left: 0;
     margin-right: 8px;
+  }
+
+  .cartoes-numeros {
+    flex-wrap: wrap;
+  }
+
+  .cartao-numero {
+    flex-basis: 40%;
   }
 
   /* Tabela vira rolagem lateral para não espremer o texto */

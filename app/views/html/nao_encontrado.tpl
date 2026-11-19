@@ -13,7 +13,7 @@
   <main>
     <h1>Não encontrado</h1>
     <p>{{mensagem}}</p>
-    <p><a href="/atendimentos">← Voltar para os atendimentos</a></p>
+    <p><a href="/painel">← Voltar para o painel</a></p>
   </main>
 
 </body>

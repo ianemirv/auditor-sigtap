@@ -13,12 +13,17 @@
   <main>
     <div class="titulo-pagina">
       <h1>Catálogo SIGTAP</h1>
-      <a class="botao" href="/procedimentos/novo">+ Novo procedimento</a>
+      % if usuario.pode_editar_catalogo():
+        <a class="botao" href="/procedimentos/novo">+ Novo procedimento</a>
+      % end
     </div>
     <p class="explicacao">
       Recorte da tabela SIGTAP usado pelo sistema. As palavras-chave são as que
       o classificador procura nos textos clínicos.
     </p>
+    % if not usuario.pode_editar_catalogo():
+      <p class="aviso">Você pode consultar o catálogo. Só o administrador cadastra, edita ou exclui procedimentos.</p>
+    % end
 
     <table>
       <thead>
@@ -26,7 +31,9 @@
           <th>Código</th>
           <th>Nome</th>
           <th>Palavras-chave</th>
-          <th>Ações</th>
+          % if usuario.pode_editar_catalogo():
+            <th>Ações</th>
+          % end
         </tr>
       </thead>
       <tbody>
@@ -39,12 +46,14 @@
                 <span class="etiqueta">{{palavra}}</span>
               % end
             </td>
-            <td class="acoes">
-              <a href="/procedimentos/{{procedimento.codigo}}/editar">Editar</a>
-              <form class="form-excluir" method="POST" action="/procedimentos/{{procedimento.codigo}}/excluir">
-                <button type="submit" class="botao-texto perigo">Excluir</button>
-              </form>
-            </td>
+            % if usuario.pode_editar_catalogo():
+              <td class="acoes">
+                <a href="/procedimentos/{{procedimento.codigo}}/editar">Editar</a>
+                <form class="form-excluir" method="POST" action="/procedimentos/{{procedimento.codigo}}/excluir">
+                  <button type="submit" class="botao-texto perigo">Excluir</button>
+                </form>
+              </td>
+            % end
           </tr>
         % end
       </tbody>

@@ -3,6 +3,7 @@ import os
 
 from app.models.procedimento import Procedimento
 from app.models.atendimento import Atendimento
+from app.models.usuario import Usuario
 
 
 class RepositorioJSON:
@@ -91,4 +92,26 @@ class RepositorioAtendimentos(RepositorioJSON):
         for atendimento in self._objetos:
             if atendimento.id > maior:
                 maior = atendimento.id
+        return maior + 1
+
+
+class RepositorioUsuarios(RepositorioJSON):
+
+    def __init__(self):
+        super().__init__('app/controllers/db/usuarios.json')
+
+    def criar_objeto(self, dados):
+        return Usuario.from_dict(dados)
+
+    def buscar_por_login(self, login):
+        for usuario in self._objetos:
+            if usuario.login == login:
+                return usuario
+        return None
+
+    def proximo_id(self):
+        maior = 0
+        for usuario in self._objetos:
+            if usuario.id > maior:
+                maior = usuario.id
         return maior + 1

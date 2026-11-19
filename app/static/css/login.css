@@ -1,0 +1,132 @@
+/* Página de login (Nível 3) */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #16695f, #0f4d46);
+  color: #222222;
+}
+
+.caixa-login {
+  background-color: white;
+  width: 100%;
+  max-width: 360px;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+  margin: 0;
+  color: #16695f;
+  text-align: center;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #666666;
+  margin-top: 6px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  margin-top: 4px;
+}
+
+input:focus {
+  outline: 2px solid #16695f;
+  border-color: #16695f;
+}
+
+input.campo-errado {
+  border-color: #b4232f;
+  background-color: #fbeaea;
+}
+
+/* Campo de senha com o botão "Mostrar" do lado */
+.campo-senha {
+  display: flex;
+  gap: 6px;
+}
+
+.campo-senha button {
+  margin-top: 4px;
+  padding: 0 12px;
+  border: 1px solid #16695f;
+  border-radius: 5px;
+  background-color: white;
+  color: #16695f;
+  cursor: pointer;
+}
+
+.campo-senha button:hover {
+  background-color: #e3efed;
+}
+
+.botao-entrar {
+  width: 100%;
+  margin-top: 22px;
+  padding: 11px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #16695f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.botao-entrar:hover {
+  background-color: #0f4d46;
+}
+
+.erro-servidor {
+  background-color: #fbeaea;
+  color: #b4232f;
+  border-left: 4px solid #b4232f;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.erro-campo {
+  display: block;
+  color: #b4232f;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.aviso-caps {
+  display: block;
+  color: #8a6100;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.escondido {
+  display: none;
+}
+
+.rodape-login {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.rodape-login a {
+  color: #16695f;
+}

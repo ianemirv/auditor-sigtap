@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "nome": "Ian",
+    "login": "admin",
+    "tipo": "administrador",
+    "senha_hash": "115116eb0e9253421e623ee2dd3ebc9e21164b58b2e5fab62200420d0413dbf2",
+    "sal": "88db23a0ddf49a77f1fb4b4c310a2209"
+  },
+  {
+    "id": 2,
+    "nome": "Marina Lopes",
+    "login": "marina",
+    "tipo": "codificador",
+    "senha_hash": "512d3894a337bda006482d72f833624e3408fecf5170010ecadac4029ad2d852",
+    "sal": "6fcfd840ec48934b5d14218c4984cc13"
+  }
+]

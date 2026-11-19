@@ -20,7 +20,11 @@
         </form>
       </div>
     </div>
-    <p class="data">Cadastrado em {{atendimento.data}}</p>
+    <p class="data">Cadastrado em {{atendimento.data}}
+      % if atendimento.autor != '':
+        por <strong>{{atendimento.autor}}</strong>
+      % end
+    </p>
 
     <!-- Alertas primeiro: é o que o auditor precisa ver -->
     % for sugestao in nao_faturados:
