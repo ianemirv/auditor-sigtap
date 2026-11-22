@@ -70,6 +70,9 @@ class Usuario(ABC):
     def pode_gerenciar_usuarios(self):
         return False
 
+    def pode_ver_auditoria(self):
+        return False
+
     # ------------------------------------------------------------------
     # JSON
 
@@ -97,7 +100,7 @@ class Codificador(Usuario):
 
 
 class Administrador(Usuario):
-    """Faz tudo: também edita o catálogo SIGTAP e cuida dos usuários."""
+    """Faz tudo: edita o catálogo SIGTAP, cuida dos usuários e vê a auditoria."""
 
     def tipo(self):
         return 'administrador'
@@ -107,6 +110,9 @@ class Administrador(Usuario):
         return True
 
     def pode_gerenciar_usuarios(self):
+        return True
+
+    def pode_ver_auditoria(self):
         return True
 
 

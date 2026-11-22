@@ -63,11 +63,15 @@
           <li class="sim">Consultar o catálogo SIGTAP ({{total_procedimentos}} procedimentos)</li>
           <li class="{{'sim' if usuario.pode_editar_catalogo() else 'nao'}}">Editar o catálogo SIGTAP</li>
           <li class="{{'sim' if usuario.pode_gerenciar_usuarios() else 'nao'}}">Gerenciar usuários</li>
+          <li class="{{'sim' if usuario.pode_ver_auditoria() else 'nao'}}">Ver a auditoria em tempo real</li>
         </ul>
 
         <h2>Atalhos</h2>
         <div class="botoes atalhos">
           <a class="botao" href="/atendimentos/novo">+ Novo atendimento</a>
+          % if usuario.pode_ver_auditoria():
+            <a class="botao-secundario" href="/auditoria">Auditoria ao vivo</a>
+          % end
           % if usuario.pode_editar_catalogo():
             <a class="botao-secundario" href="/procedimentos/novo">+ Procedimento</a>
           % end

@@ -9,6 +9,7 @@ from app.models.repositorio import RepositorioUsuarios
 from app.models.classificador import ClassificadorPalavrasChave
 from app.models.analisador import AnalisadorFaturamento
 from app.models.usuario import novo_usuario
+from app.models.notificador import NotificadorAuditoria
 
 
 class Application():
@@ -28,12 +29,14 @@ class Application():
             'procedimento_editar': self.procedimento_editar,
             'usuarios': self.usuarios_lista,
             'usuario_novo': self.usuario_novo,
-            'usuario_editar': self.usuario_editar
+            'usuario_editar': self.usuario_editar,
+            'auditoria': self.auditoria
         }
         self.procedimentos = RepositorioProcedimentos()
         self.atendimentos = RepositorioAtendimentos()
         self.usuarios = RepositorioUsuarios()
         self.analisador = AnalisadorFaturamento()
+        self.notificador = NotificadorAuditoria()
 
 
     def render(self, page, *argumentos):
@@ -213,18 +216,94 @@ class Application():
         data = datetime.now().strftime('%d/%m/%Y %H:%M')
         atendimento = Atendimento(novo_id, texto, faturados, data, autor.login)
         self.atendimentos.adicionar(atendimento)
+        self.avisar_auditoria(atendimento, 'cadastrado', autor)   # Nível 4
         return novo_id
 
-    def editar_atendimento(self, id, texto, faturados):
+    def editar_atendimento(self, id, texto, faturados, quem):
         antigo = self.atendimentos.buscar_por_id(id)
         if antigo is None:
             return False
         # A data e o autor do cadastro continuam os mesmos
         novo = Atendimento(id, texto, faturados, antigo.data, antigo.autor)
-        return self.atendimentos.atualizar(novo)
+        self.atendimentos.atualizar(novo)
+        self.avisar_auditoria(novo, 'editado', quem)              # Nível 4
+        return True
 
-    def excluir_atendimento(self, id):
-        return self.atendimentos.remover(id)
+    def excluir_atendimento(self, id, quem):
+        atendimento = self.atendimentos.buscar_por_id(id)
+        if atendimento is None:
+            return False
+        self.atendimentos.remover(id)
+        # Nível 4: avisa o painel para tirar o atendimento da fila
+        mensagem = self.montar_mensagem('excluido', atendimento, [], 'excluído', quem.nome)
+        self.notificador.enviar(mensagem)
+        return True
+
+
+    # ------------------------------------------------------------------
+    # Nível 4: painel de auditoria em tempo real
+
+    def nome_do_autor(self, login):
+        # O atendimento guarda só o login; aqui buscamos o nome da pessoa
+        usuario = self.usuarios.buscar_por_login(login)
+        if usuario is None:
+            return login if login != '' else 'desconhecido'
+        return usuario.nome
+
+    def montar_mensagem(self, tipo, atendimento, nao_faturados, acao, quem, horario=None):
+        """Monta o dicionário que vai para o painel de auditoria.
+
+        tipo: 'alerta' (tem procedimento não faturado), 'ok' (tudo faturado)
+              ou 'excluido' (o atendimento foi apagado).
+        O mesmo formato serve para os cartões que já aparecem quando a
+        página abre e para as mensagens que chegam pelo WebSocket.
+        """
+        if horario is None:
+            horario = datetime.now().strftime('%H:%M:%S')
+        procedimentos = []
+        for sugestao in nao_faturados:
+            procedimentos.append({
+                'codigo': sugestao.procedimento.codigo,
+                'nome': sugestao.procedimento.nome,
+                'porcentagem': sugestao.porcentagem
+            })
+        return {
+            'tipo': tipo,
+            'id': atendimento.id,
+            'acao': acao,
+            'quem': quem,
+            'horario': horario,
+            'resumo': atendimento.resumo(140),
+            'procedimentos': procedimentos
+        }
+
+    def avisar_auditoria(self, atendimento, acao, quem):
+        # Analisa o atendimento salvo e manda o resultado para os painéis abertos
+        sugestoes, nao_faturados, sem_evidencia = self.analisar(atendimento)
+        if len(nao_faturados) > 0:
+            tipo = 'alerta'
+        else:
+            tipo = 'ok'
+        mensagem = self.montar_mensagem(tipo, atendimento, nao_faturados, acao, quem.nome)
+        self.notificador.enviar(mensagem)
+
+    def auditoria(self, usuario):
+        # Quando a página abre, a fila já mostra os atendimentos com alerta.
+        # Depois, o WebSocket acrescenta os novos sem recarregar.
+        alertas = []
+        total_procedimentos = 0
+        for atendimento in reversed(self.atendimentos.listar()):
+            sugestoes, nao_faturados, sem_evidencia = self.analisar(atendimento)
+            if len(nao_faturados) > 0:
+                alertas.append(self.montar_mensagem('alerta', atendimento, nao_faturados,
+                                                    'cadastrado',
+                                                    self.nome_do_autor(atendimento.autor),
+                                                    atendimento.data))
+                total_procedimentos = total_procedimentos + len(nao_faturados)
+        return template('app/views/html/auditoria',
+                        usuario=usuario,
+                        alertas=alertas,
+                        total_procedimentos=total_procedimentos)
 
 
     # ------------------------------------------------------------------

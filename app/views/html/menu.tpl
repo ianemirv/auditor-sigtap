@@ -8,6 +8,9 @@
     % if usuario is not None and usuario.pode_gerenciar_usuarios():
       <a href="/usuarios" class="{{'ativo' if ativo == 'usuarios' else ''}}">Usuários</a>
     % end
+    % if usuario is not None and usuario.pode_ver_auditoria():
+      <a href="/auditoria" class="{{'ativo' if ativo == 'auditoria' else ''}}">Auditoria ao vivo</a>
+    % end
   </nav>
   % if usuario is not None:
     <div class="usuario-logado">

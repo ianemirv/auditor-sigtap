@@ -106,9 +106,66 @@ As rotas só perguntam `usuario.pode_editar_catalogo()`, sem saber se o objeto �
 - Saudação pela hora do dia e números do painel subindo de 0 até o valor (`painel.js`)
 - Mostrar/ocultar senha, aviso de senha curta ou diferente e validação (`usuario_form.js`)
 
+## Nível 4
+
+Painel de **auditoria em tempo real** com WebSocket. O administrador deixa a página
+`/auditoria` aberta e, quando qualquer usuário salva um atendimento, o resultado da
+análise chega na hora, sem recarregar a página.
+
+- **HTTP normal**: o navegador pergunta e o servidor responde; o servidor nunca fala primeiro.
+- **WebSocket**: o navegador abre uma conexão que fica aberta, e o servidor manda mensagens quando quiser.
+
+O que acontece quando um atendimento é salvo:
+
+1. A rota POST chama o controller (`criar_atendimento`, `editar_atendimento` ou `excluir_atendimento`).
+2. O controller analisa o atendimento com o `AnalisadorFaturamento` e monta uma mensagem:
+   `alerta` (há procedimento citado e não faturado), `ok` (tudo faturado) ou `excluido`.
+3. O `NotificadorAuditoria` transforma a mensagem em JSON e manda para todos os painéis abertos.
+4. No navegador, o `auditoria.js` recebe a mensagem e atualiza a página:
+   - `alerta`: um cartão entra no topo da fila, com animação;
+   - `ok` ou `excluido`: o cartão daquele atendimento sai da fila;
+   - toda mensagem vira uma linha na lista "Atividade ao vivo", e os contadores se atualizam.
+
+| Rota | Método | Quem acessa | O que faz |
+| --- | --- | --- | --- |
+| `/auditoria` | GET | Administrador | Página com a fila de auditoria, os contadores e a atividade ao vivo |
+| `/ws/auditoria` | WebSocket | Administrador | Conexão que fica aberta para receber as mensagens |
+
+- O WebSocket confere o cookie de login: se não for um administrador, o servidor
+  responde `negado` e fecha a conexão.
+- O codificador não vê o link "Auditoria ao vivo" e recebe **Acesso negado** (403) se digitar o endereço.
+- O servidor padrão do Bottle não aceita WebSocket, então o `route.py` roda com o servidor do
+  **gevent** (`server='gevent'`, `handler_class=WebSocketHandler`, da biblioteca `gevent-websocket`).
+
+### Classe nova
+
+| Classe | Papel | Conceito de OO |
+| --- | --- | --- |
+| `NotificadorAuditoria` | Guarda a lista de conexões abertas (privada); `conectar()`, `desconectar()`, `enviar()` para todas e tira as que caíram | Encapsulamento |
+
+`Usuario` ganhou `pode_ver_auditoria()`, que devolve `False`; `Administrador` sobrescreve para `True`
+(o mesmo polimorfismo do Nível 3).
+
+### JavaScript do nível (`auditoria.js`)
+
+- `new WebSocket('ws://' + location.host + '/ws/auditoria')` e `onmessage` para cada mensagem
+- Cartões criados na hora, com animação de entrada e de saída
+- Indicador de conexão: amarelo (conectando), verde (conectado), vermelho (caiu)
+- Reconexão automática 3 segundos depois de a conexão cair
+- Contadores e título da aba atualizados a cada mensagem
+
+### Como testar
+
+1. Janela normal: entre como `admin` e abra **Auditoria ao vivo**.
+2. Janela anônima ao lado: entre como `marina` e cadastre um atendimento deixando
+   de marcar um procedimento citado no texto.
+3. O alerta aparece na hora na janela do administrador.
+4. Edite o atendimento marcando o que faltava: o cartão sai da fila.
+
 ## Como rodar
 
-1. Instalar o Bottle: `pip install bottle`
+1. Instalar as bibliotecas: `python -m pip install -r requirements.txt`
+   (Bottle, gevent e gevent-websocket)
 2. (Opcional) Criar os usuários de teste: `python criar_usuarios.py`.
    O repositório já vem com eles em `app/controllers/db/usuarios.json`.
 3. Executar o arquivo `route.py`, na raiz do projeto: `python route.py`

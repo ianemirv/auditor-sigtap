@@ -1,4 +1,4 @@
-/* Estilo das páginas internas do sistema (Níveis 2 e 3) */
+/* Estilo das páginas internas do sistema (Níveis 2, 3 e 4) */
 
 body {
   margin: 0;
@@ -555,6 +555,179 @@ legend {
 
 .campo-senha .botao-secundario {
   margin-top: 4px;
+}
+
+/* ---------- Nível 4: auditoria em tempo real ---------- */
+
+/* Indicador de conexão: bolinha colorida + texto */
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.estado::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.estado-conectando {
+  background-color: #fdf3d8;
+  color: #8a6100;
+}
+
+.estado-conectando::before {
+  background-color: #d9a400;
+}
+
+.estado-conectado {
+  background-color: #e3efed;
+  color: #16695f;
+}
+
+.estado-conectado::before {
+  background-color: #1f9d55;
+  animation: piscar 1.5s infinite;
+}
+
+.estado-desconectado {
+  background-color: #fbeaea;
+  color: #b4232f;
+}
+
+.estado-desconectado::before {
+  background-color: #b4232f;
+}
+
+@keyframes piscar {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* A fila ocupa mais espaço que a lista de atividade */
+.colunas-auditoria .coluna-fila {
+  flex: 2;
+}
+
+.colunas-auditoria .coluna-atividade {
+  flex: 1;
+  align-self: flex-start;
+}
+
+.cartao-auditoria {
+  border-left: 4px solid #b4232f;
+  background-color: #fdf6f6;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.cartao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.cartao-auditoria p {
+  margin: 4px 0;
+}
+
+.cartao-quem {
+  color: #666666;
+  font-size: 14px;
+}
+
+.cartao-resumo {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.cartao-legenda {
+  font-size: 13px;
+  font-weight: bold;
+  color: #b4232f;
+}
+
+.cartao-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #16695f;
+  font-size: 14px;
+}
+
+.selo-acao {
+  background-color: #eeeeee;
+  color: #555555;
+}
+
+.selo-novo {
+  background-color: #ffe08a;
+  color: #5c4100;
+  font-weight: bold;
+}
+
+/* Cartão que acabou de chegar pelo WebSocket: desce e pisca em amarelo */
+.cartao-auditoria.chegando {
+  animation: chegar 1.2s ease-out;
+}
+
+@keyframes chegar {
+  0%   { opacity: 0; transform: translateY(-20px); background-color: #ffe08a; }
+  30%  { opacity: 1; transform: translateY(0); background-color: #ffe08a; }
+  100% { background-color: #fdf6f6; }
+}
+
+/* Cartão saindo da fila (atendimento corrigido ou excluído) */
+.cartao-auditoria.saindo {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+/* Lista de atividade */
+.atividade {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.atividade li {
+  padding: 6px 8px;
+  border-left: 4px solid #999999;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  animation: chegar-item 0.5s ease-out;
+}
+
+.atividade .hora {
+  font-family: 'Courier New', monospace;
+  color: #666666;
+  margin-right: 6px;
+}
+
+.atividade li.atividade-alerta {
+  border-left-color: #b4232f;
+  background-color: #fdf6f6;
+}
+
+.atividade li.atividade-ok {
+  border-left-color: #16695f;
+  background-color: #eef6f4;
+}
+
+@keyframes chegar-item {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 /* ---------- Celular ---------- */

@@ -1,4 +1,14 @@
+# Nível 4: o servidor padrão do Bottle não aceita WebSocket.
+# Usamos o servidor do gevent. O monkey.patch_all() precisa vir ANTES
+# de todos os outros imports: ele adapta o Python para o gevent atender
+# vários navegadores ao mesmo tempo.
+from gevent import monkey
+monkey.patch_all()
+
 import secrets
+
+from geventwebsocket.handler import WebSocketHandler
+from geventwebsocket.exceptions import WebSocketError
 
 from app.controllers.application import Application
 from bottle import Bottle, route, run, request, static_file
@@ -46,6 +56,13 @@ def exigir_permissao_catalogo():
 def exigir_permissao_usuarios():
     usuario = exigir_login()
     if not usuario.pode_gerenciar_usuarios():
+        abort(403)
+    return usuario
+
+
+def exigir_permissao_auditoria():
+    usuario = exigir_login()
+    if not usuario.pode_ver_auditoria():
         abort(403)
     return usuario
 
@@ -141,19 +158,19 @@ def action_atendimento_editar(id):
 
 @app.route('/atendimentos/<id:int>/editar', method='POST')
 def action_atendimento_salvar(id):
-    exigir_login()
+    usuario = exigir_login()
     dados = request.forms.decode()
     texto = dados.get('texto', '')
     faturados = dados.getall('faturados')
     if texto.strip() == '':
         redirect('/atendimentos/' + str(id) + '/editar')
-    ctl.editar_atendimento(id, texto, faturados)
+    ctl.editar_atendimento(id, texto, faturados, usuario)
     redirect('/atendimentos/' + str(id))
 
 @app.route('/atendimentos/<id:int>/excluir', method='POST')
 def action_atendimento_excluir(id):
-    exigir_login()
-    ctl.excluir_atendimento(id)
+    usuario = exigir_login()
+    ctl.excluir_atendimento(id, usuario)
     redirect('/atendimentos')
 
 
@@ -247,9 +264,48 @@ def action_usuario_excluir(id):
     redirect('/usuarios')
 
 
+# Nível 4: auditoria em tempo real - só o administrador -----------------------
+
+@app.route('/auditoria', method='GET')
+def action_auditoria():
+    usuario = exigir_permissao_auditoria()
+    return ctl.render('auditoria', usuario)
+
+@app.route('/ws/auditoria')
+def action_ws_auditoria():
+    # Num pedido normal (HTTP), o navegador pergunta e o servidor responde.
+    # Aqui o navegador abre um WebSocket: a conexão FICA ABERTA, e o servidor
+    # pode mandar mensagens quando quiser (ver NotificadorAuditoria.enviar).
+    conexao = request.environ.get('wsgi.websocket')
+    if conexao is None:
+        abort(400, 'Este endereço só aceita conexões WebSocket.')
+
+    # O navegador manda o cookie de login também no WebSocket
+    usuario = usuario_logado()
+    if usuario is None or not usuario.pode_ver_auditoria():
+        ctl.notificador.recusar(conexao)
+        return ''
+
+    ctl.notificador.conectar(conexao)
+    try:
+        # O painel não manda nada; receive() só fica esperando.
+        # Quando o navegador fecha a aba, receive() devolve None.
+        while True:
+            mensagem = conexao.receive()
+            if mensagem is None:
+                break
+    except WebSocketError:
+        pass   # a conexão caiu de repente: tudo bem, só sai do laço
+    finally:
+        ctl.notificador.desconectar(conexao)   # roda sempre, com ou sem erro
+    return ''
+
+
 #-----------------------------------------------------------------------------
 
 
 if __name__ == '__main__':
 
-    run(app, host='0.0.0.0', port=8080, debug=True)
+    # server='gevent' + WebSocketHandler: servidor que aceita HTTP e WebSocket
+    run(app, host='0.0.0.0', port=8080, debug=True,
+        server='gevent', handler_class=WebSocketHandler)
